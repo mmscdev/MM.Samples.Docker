@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+
+  sqlserver_service_teste:
+      image: mcr.microsoft.com/mssql/server:2017-latest
+      environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=#T3ste1866Yx
+        - MSSQL_PID=Express
+      ports:
+          - 1433:1433
+      volumes:
+        - type: volume
+          source: sqlserver_data
+          target: /var/opt/mssql
+      networks:
+        - db
+
+volumes:
+  sqlserver_data:
+    driver: local
+
+networks:
+  db:
+    driver: bridge

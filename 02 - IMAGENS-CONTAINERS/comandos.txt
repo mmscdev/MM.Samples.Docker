@@ -1,0 +1,6 @@
+docker build  . -t app-node-1
+
+docker run -p 3000:3000 app-node-1
+
+
+docker run -e port=88 -p 9096:88 app-node-1

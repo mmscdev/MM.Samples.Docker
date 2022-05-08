@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+
+  postgres_service_teste:
+    image: postgres:9.6
+    environment:
+      - POSTGRESL_DB=dockerdefinitivo
+      - POSTGRES_USER=app01
+      - POSTGRES_PASSWORD=teste
+    volumes:
+      - postgres_data:/var/lib/postgresql/data      
+      - ./scripts/:/docker-entrypoint-initdb.d
+    networks:
+        - db
+  postgres_ui: 
+      image: dpage/pgadmin4:4.18
+      environment:
+        - PGADMIN_DEFAULT_EMAIL=mmscfdesv@xxxxxx.com
+        - PGADMIN_DEFAULT_PASSWORD=SuperSecret
+        - POSTGRES_PASSWORD=teste
+      volumes:
+        - pgadmin_data:/var/lib/pgadmin
+      ports: 
+        - 80:80
+      networks:
+        - db
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  db:
+    driver: bridge

@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+
+  mysql_service_teste:
+    #image: mysql:8
+    image: mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=teste
+      - MYSQL_DATABASE=dockerdefinitivo
+      - MYSQL_USER=app01
+      - MYSQL_PASSWORD=teste
+    volumes:
+      - mysql_data:/var/lib/mysql      
+      - ./scripts/:/docker-entrypoint-initdb.d
+    ports: 
+      - 3306:3306
+
+volumes:
+  mysql_data:
+    driver: local
